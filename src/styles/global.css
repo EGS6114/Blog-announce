@@ -1,0 +1,148 @@
+/* ===== 全局重置与基础样式 ===== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background-color: #ffffff;
+  color: #1e1e2f;
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+a {
+  color: #759fdd;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* 头部 */
+.site-header {
+  padding: 1.8rem 0 0.8rem;
+  border-bottom: 1px solid #eaeef2;
+}
+
+.site-header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* 主内容 */
+.main-content {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+/* 公告卡片 */
+.announcement-block {
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+
+.announcement-block:last-child {
+  margin-bottom: 0;
+}
+
+.announcement-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.announcement-date {
+  font-size: 0.85rem;
+  color: #6a7974;
+  margin-bottom: 0.6rem;
+}
+
+.announcement-content {
+  font-size: 1rem;
+  white-space: pre-wrap; /* 保留换行 */
+}
+
+/* 分隔线 */
+.divider {
+  border: none;
+  border-top: 1px solid #eaeef2;
+  margin: 2rem 0;
+}
+
+/* 跳转按钮 */
+.btn-blog {
+  display: inline-block;
+  background-color: #8b878d;
+  color: #ffffff !important;
+  padding: 0.6rem 1.6rem;
+  border-radius: 30px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+.btn-blog:hover {
+  background-color: #2d2d44;
+  transform: translateY(-2px);
+  text-decoration: none;
+  text-align: center;
+}
+
+/* 页脚 */
+.site-footer {
+  border-top: 1px solid #eaeef2;
+  padding: 1.5rem 0;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #6b7a8a;
+  text-align: center;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.3rem;
+}
+.footer-links a {
+  color: #4a6fa5;
+}
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 600px) {
+  .container {
+    padding: 0 1.2rem;
+  }
+  .site-header h1 {
+    font-size: 1.5rem;
+  }
+  .announcement-title {
+    font-size: 1.1rem;
+  }
+  .btn-blog {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  /* 列表和公告内容保持左对齐，提升可读性 */
+}

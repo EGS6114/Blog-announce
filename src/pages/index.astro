@@ -1,0 +1,107 @@
+---
+// 导入布局和数据
+import BaseLayout from "../layouts/BaseLayout.astro";
+import announcements from "../data/announcements.json";
+
+// 配置：你的 GitHub 仓库（请替换为实际仓库名）
+const GITHUB_REPO = "EGS6114/folio-blog"; // 格式：'owner/repo'
+const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_REPO}/commits?per_page=1`;
+
+// 获取最新 commit 信息（构建时静态获取）
+// 如果获取失败，返回 null，页面优雅降级
+let latestCommit: { message: string; date: string; url: string } | null = null;
+try {
+  const response = await fetch(GITHUB_API_URL, {
+    headers: {
+      Accept: "application/vnd.github.v3+json",
+      // 如果遇到 API 限流，可以添加 GitHub Token（可选）
+      // 'Authorization': 'token YOUR_GITHUB_TOKEN'
+    },
+  });
+  if (response.ok) {
+    const data = await response.json();
+    if (data && data.length > 0) {
+      const commit = data[0];
+      latestCommit = {
+        message: commit.commit.message.split("\n")[0], // 只取第一行
+        date: new Date(commit.commit.author.date).toLocaleDateString("zh-CN", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
+        url: commit.html_url,
+      };
+    }
+  } else {
+    console.warn("GitHub API 请求失败，状态码:", response.status);
+  }
+} catch (error) {
+  console.error("获取 GitHub commit 时出错:", error);
+}
+
+// 按日期降序排序手动公告（最新的在前面）
+const sortedAnnouncements = [...announcements].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+);
+
+// 博客链接
+const BLOG_URL = "https://folio.cc.cd";
+---
+
+<BaseLayout title="公告站 - 最新动态">
+  <!-- 最新 GitHub Commit 展示 -->
+  <section class="announcement-block">
+    <h2 class="announcement-title">📦 最新代码提交</h2>
+    {
+      latestCommit ? (
+        <>
+          <div class="announcement-date">{latestCommit.date}</div>
+          <div class="announcement-content">
+            <a
+              href={latestCommit.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {latestCommit.message}
+            </a>
+          </div>
+        </>
+      ) : (
+        <div class="announcement-content" style="color: #888;">
+          暂时无法获取提交信息，请稍后再试。
+        </div>
+      )
+    }
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 手动公告列表 -->
+  <section>
+    <h2 style="font-size:1.3rem; font-weight:600; margin-bottom:1rem;">
+      📌 其他公告
+    </h2>
+    {
+      sortedAnnouncements.length > 0 ? (
+        sortedAnnouncements.map((item) => (
+          <div class="announcement-block">
+            <div class="announcement-title">{item.title}</div>
+            <div class="announcement-date">{item.date}</div>
+            <div class="announcement-content">{item.content}</div>
+          </div>
+        ))
+      ) : (
+        <p style="color: #888;">暂无手动公告。</p>
+      )
+    }
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 跳转到博客的按钮 -->
+  <div style="text-align: center; margin-top: 1.5rem;">
+    <a href={BLOG_URL} class="btn-blog" target="_blank" rel="noopener">
+      ✨ 前往主博客
+    </a>
+  </div>
+</BaseLayout>

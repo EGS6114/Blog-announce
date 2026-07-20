@@ -1,0 +1,50 @@
+---
+// 基础布局组件：包含头部、主内容插槽、页脚
+export interface Props {
+  title?: string; // 页面标题
+  description?: string; // 页面描述（用于 meta）
+}
+
+const { title = "公告站", description = "Folio 博客公告与更新" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <!-- 头部 -->
+    <header class="site-header">
+      <div class="container">
+        <h1>📢 Folio 公告站</h1>
+      </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="main-content">
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-links">
+          <a href="https://github.com/EGS6114" target="_blank" rel="noopener"
+            >GitHub</a
+          >
+          <a href="mailto:3906446936@qq.com">QQ</a>
+        </div>
+        <div style="margin-top:0.3rem;">
+          &copy; {new Date().getFullYear()} Folio 公告站
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
