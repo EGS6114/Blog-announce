@@ -1,5 +1,6 @@
 ---
 // 基础布局组件：包含头部、主内容插槽、页脚
+import "~/styles/global.css";
 export interface Props {
   title?: string; // 页面标题
   description?: string; // 页面描述（用于 meta）
@@ -21,7 +22,7 @@ const { title = "公告站", description = "Folio 博客公告与更新" } = Ast
     <!-- 头部 -->
     <header class="site-header">
       <div class="container">
-        <h1>📢 Folio 公告站</h1>
+        <h1>Folio 公告站</h1>
       </div>
     </header>
 
