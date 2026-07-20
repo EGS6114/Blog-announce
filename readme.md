@@ -7,20 +7,22 @@
 
 ## 项目结构
 
+```plaintext
 folio-announce/
 ├── astro.config.mjs
 ├── package.json
 ├── tsconfig.json
 ├── src/
 │   ├── data/
-│   │   └── announcements.json        # 手动公告数据
+│   │   └── announcements.json  # 手动公告数据
 │   ├── layouts/
-│   │   └── BaseLayout.astro          # 公共布局（含头部、页脚）
+│   │   └── BaseLayout.astro    # 公共布局（含头部、页脚）
 │   ├── pages/
-│   │   └── index.astro               # 首页（显示 commit 和公告）
+│   │   └── index.astro         # 首页
 │   └── styles/
-│       └── global.css                # 全局极简样式
-└── README.md                         # 可选
+│       └── global.css        # 全局极简样式
+└── README.md                       
+```
 
 ## 快速开始
 
